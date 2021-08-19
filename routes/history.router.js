@@ -7,8 +7,11 @@ const {
   postHistoryController,
 } = require("../controllers/history.controllers");
 
-router.use("/", authVerify);
-router.route("/").get(getHistoryController).post(postHistoryController);
+// router.use("/", authVerify);
+router
+  .route("/")
+  .get(authVerify, getHistoryController)
+  .post(authVerify, postHistoryController);
 
 module.exports = { router };
 

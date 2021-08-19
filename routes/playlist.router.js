@@ -7,8 +7,11 @@ const {
   postPlaylistController,
 } = require("../controllers/playlist.controllers");
 
-router.use("/", authVerify);
+// router.use("/", authVerify);
 
-router.route("/").get(getPlaylistController).post(postPlaylistController);
+router
+  .route("/")
+  .get(authVerify, getPlaylistController)
+  .post(authVerify, postPlaylistController);
 
 module.exports = { router };
