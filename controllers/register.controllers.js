@@ -10,6 +10,10 @@ const postController = async (req, res) => {
     return res.status(401).json({ message: error.details[0].message });
   }
   try {
+    const validateUser = User.findOne({ email: data.email });
+    if(validateUser) {
+      return res.status(400).json({success : false, "email already exists"})
+    }
     const user = new User(data);
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
