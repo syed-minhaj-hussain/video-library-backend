@@ -27,6 +27,7 @@ const postLikedVideoController = async (req, res) => {
         saveItemCreated,
         message: "Video Added To Likes",
       });
+      console.log({ likedVideo });
     }
   } catch (err) {
     res.status(404).json({ success: false, message: "Something Went Wrong!" });
