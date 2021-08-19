@@ -8,7 +8,7 @@ const {
   deleteLikedVideoController,
 } = require("../controllers/likedVideos.controller");
 
-router.use("/", authVerify);
+// router.use("/", authVerify);
 
 router
   .route("/")
