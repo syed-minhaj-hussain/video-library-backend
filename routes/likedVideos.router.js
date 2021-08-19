@@ -10,8 +10,11 @@ const {
 
 router.use("/", authVerify);
 
-router.route("/").get(getLikedVideoController).post(postLikedVideoController);
+router
+  .route("/")
+  .get(authVerify, getLikedVideoController)
+  .post(authVerify, postLikedVideoController);
 
-router.route("/:likedVideoId").delete(deleteLikedVideoController);
+router.route("/:likedVideoId").delete(authVerify, deleteLikedVideoController);
 
 module.exports = { router };
