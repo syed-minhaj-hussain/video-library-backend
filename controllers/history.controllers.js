@@ -23,13 +23,13 @@ const postHistoryController = async (req, res) => {
     if (history) {
       const savedHistory = await History.findOneAndUpdate(
         { user: _id },
-        { history },
+        { history: history },
         { useFindAndModify: false },
         async (err, doc) => {
           console.log({ err });
           console.log({ doc });
           if (!doc) {
-            const createHistory = new History({ user: _id, history });
+            const createHistory = new History({ user: _id, history: playlist });
             try {
               const saveHistory = await createHistory.save();
               res.status(200).json({ succes: true, saveHistory });

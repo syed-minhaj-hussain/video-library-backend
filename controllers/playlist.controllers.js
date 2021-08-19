@@ -23,11 +23,14 @@ const postPlaylistController = async (req, res) => {
     if (playlist) {
       const savedPlaylist = await Playlist.findOneAndUpdate(
         { user: _id },
-        { playlist },
+        { playlist: playlist },
         { useFindAndModify: false },
         async (err, doc) => {
           if (!doc) {
-            const createPlaylist = new Playlist({ user: _id, playlist });
+            const createPlaylist = new Playlist({
+              user: _id,
+              playlist: playlist,
+            });
             try {
               const savePlaylist = await createPlaylist.save();
               res.status(200).json({ succes: true, savePlaylist });
