@@ -20,7 +20,7 @@ const postLikedVideoController = async (req, res) => {
   const likedVideo = req.body;
   try {
     if (likedVideo) {
-      const itemCreated = new LikedVideo({ ...likedVideo, user: _id });
+      const itemCreated = await new LikedVideo({ ...likedVideo, user: _id });
       const saveItemCreated = await itemCreated.save();
       res.status(200).json({
         success: true,
