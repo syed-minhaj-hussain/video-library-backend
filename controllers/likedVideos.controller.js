@@ -25,11 +25,11 @@ const postLikedVideoController = async (req, res) => {
       res.status(200).json({
         success: true,
         saveItemCreated,
-        message: "Item Added To Wishlist",
+        message: "Video Added To Likes",
       });
     }
   } catch (err) {
-    res.status(404).json({ success: false, message: "WishItem Not Found" });
+    res.status(404).json({ success: false, message: "Something Went Wrong!" });
   }
 };
 
