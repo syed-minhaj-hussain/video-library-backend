@@ -8,10 +8,13 @@ const {
   deleteWatchLaterController,
 } = require("../controllers/watchLater.controller");
 
-router.use("/", authVerify);
+// router.use("/", authVerify);
 
-router.route("/").get(getWatchLaterController).post(postWatchLaterController);
+router
+  .route("/")
+  .get(authVerify, getWatchLaterController)
+  .post(authVerify, postWatchLaterController);
 
-router.route("/:watchLaterId").delete(deleteWatchLaterController);
+router.route("/:watchLaterId").delete(authVerify, deleteWatchLaterController);
 
 module.exports = { router };
