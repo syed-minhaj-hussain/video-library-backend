@@ -29,7 +29,7 @@ const postHistoryController = async (req, res) => {
           console.log({ err });
           console.log({ doc });
           if (!doc) {
-            const createHistory = new History({ user: _id, history: playlist });
+            const createHistory = new History({ user: _id, history: history });
             try {
               const saveHistory = await createHistory.save();
               res.status(200).json({ succes: true, saveHistory });
