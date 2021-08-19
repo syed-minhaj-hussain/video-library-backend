@@ -7,7 +7,7 @@ const getPlaylistController = async (req, res) => {
   try {
     const playlist = await Playlist.find({ user: _id });
 
-    res.status(200).json({ success: true, playlist });
+    res.status(200).json(playlist);
   } catch (err) {
     res.status(404).json({ success: false, message: "Playlist Not Found" });
   }
