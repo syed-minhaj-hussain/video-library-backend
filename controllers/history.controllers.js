@@ -7,7 +7,7 @@ const getHistoryController = async (req, res) => {
   try {
     const history = await History.find({ user: _id });
 
-    res.status(200).json({ success: true, history });
+    res.status(200).json(history);
   } catch (err) {
     res.status(404).json({ success: false, message: "history Not Found" });
   }
