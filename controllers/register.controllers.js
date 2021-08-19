@@ -10,7 +10,7 @@ const postController = async (req, res) => {
     return res.status(401).json({ message: error.details[0].message });
   }
   try {
-    const validateUser = User.findOne({ email: data.email });
+    const validateUser = await User.findOne({ email: data.email });
     if (validateUser) {
       return res
         .status(400)
