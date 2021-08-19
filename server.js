@@ -25,7 +25,7 @@ app.use("/videos", videosRouter);
 app.use("/login", signInRouter);
 app.use("/register", signUpRouter);
 app.use("/history", historyRouter);
-app.use("/playist", playlistRouter);
+app.use("/playlist", playlistRouter);
 app.use("/likedVideos", likedVideosRouter);
 app.use("/watchLater", watchLaterRouter);
 
