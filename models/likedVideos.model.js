@@ -39,6 +39,7 @@ const LikedVideoSchema = new Schema(
       type: Boolean,
       required: "Please Add This Field",
     },
+    videoId: String,
   },
   { timestamps: { createdAt: "created_at" } }
 );
