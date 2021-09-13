@@ -39,6 +39,7 @@ const WatchLaterSchema = new Schema(
       type: Boolean,
       required: "Please Add This Field",
     },
+    watchLaterId: String,
   },
   { timestamps: { createdAt: "created_at" } }
 );
