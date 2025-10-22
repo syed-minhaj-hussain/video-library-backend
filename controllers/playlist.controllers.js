@@ -21,27 +21,33 @@ const postPlaylistController = async (req, res) => {
   console.log({ playlist });
   try {
     if (playlist) {
+      /*
+    With upsert: true, a new document is created if one isn't found.
+    upsert:false means only update existing
+    **/
+      const options = { new: true, upsert: true };
       const savedPlaylist = await Playlist.findOneAndUpdate(
         { user: _id },
         { playlist: playlist },
-        { useFindAndModify: false },
-        async (err, doc) => {
-          if (!doc) {
-            const createPlaylist = new Playlist({
-              user: _id,
-              playlist: playlist,
-            });
-            try {
-              const savePlaylist = await createPlaylist.save();
-              res.status(200).json({ succes: true, savePlaylist });
-            } catch (err) {
-              res
-                .status(400)
-                .json({ success: false, message: "Something Went Wrong" });
-            }
-          }
-        }
+        options
       );
+      // async (err, doc) => {
+      //   if (!doc) {
+      //     const createPlaylist = new Playlist({
+      //       user: _id,
+      //       playlist: playlist,
+      //     });
+      //     try {
+      //       const savePlaylist = await createPlaylist.save();
+      //       res.status(200).json({ succes: true, savePlaylist });
+      //     } catch (err) {
+      //       res
+      //         .status(400)
+      //         .json({ success: false, message: "Something Went Wrong" });
+      //     }
+      //   }
+      // }
+
       res.status(200).json({ savedPlaylist });
     }
   } catch (err) {
