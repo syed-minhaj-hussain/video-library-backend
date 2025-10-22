@@ -37,10 +37,15 @@ const deleteWatchLaterController = async (req, res) => {
   const { watchLaterId } = req.params;
   const { user: watchLaterUser } = req;
   try {
-    await WatchLater.remove({
+    const deletedWatchLater = await WatchLater.findOneAndDelete({
       _id: watchLaterId,
       user: watchLaterUser._id,
     });
+    if (!deletedWatchLater) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Video not found" });
+    }
     res
       .status(200)
       .json({ success: true, message: "Video Removed Successfully" });
