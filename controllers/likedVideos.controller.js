@@ -5,9 +5,9 @@ const getLikedVideoController = async (req, res) => {
     user: { _id },
   } = req;
   try {
-    const likedVideo = await LikedVideo.find({ user: _id });
+    const likedVideos = await LikedVideo.find({ user: _id });
 
-    res.status(200).json({ success: true, likedVideo });
+    res.status(200).json({ success: true, likedVideos });
   } catch (err) {
     res.status(404).json({ success: false, message: "Liked Video Not Found" });
   }
@@ -35,13 +35,20 @@ const postLikedVideoController = async (req, res) => {
 };
 
 const deleteLikedVideoController = async (req, res) => {
+  console.log("DELETE_LIKED_VIDEO", { params: req.params, user: req.user });
   const { likedVideoId } = req.params;
   const { user: likedVideoUser } = req;
   try {
-    await LikedVideo.remove({
+    const deletedVideo = await LikedVideo.findOneAndDelete({
       _id: likedVideoId,
       user: likedVideoUser._id,
     });
+    console.log("CHECK", { deletedVideo });
+    if (!deletedVideo) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Video not found" });
+    }
     res
       .status(200)
       .json({ success: true, message: "Video Removed Successfully" });

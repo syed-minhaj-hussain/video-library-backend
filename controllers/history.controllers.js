@@ -21,26 +21,32 @@ const postHistoryController = async (req, res) => {
   console.log({ history });
   try {
     if (history) {
+      /*
+    With upsert: true, a new document is created if one isn't found.
+    upsert:false means only update existing
+    **/
+      const options = { new: true, upsert: true };
       const savedHistory = await History.findOneAndUpdate(
         { user: _id },
-        { history: history },
-        { useFindAndModify: false },
-        async (err, doc) => {
-          console.log({ err });
-          console.log({ doc });
-          if (!doc) {
-            const createHistory = new History({ user: _id, history: history });
-            try {
-              const saveHistory = await createHistory.save();
-              res.status(200).json({ succes: true, saveHistory });
-            } catch (err) {
-              res
-                .status(400)
-                .json({ success: false, message: "Something Went Wrong" });
-            }
-          }
-        }
+        { history },
+        options
       );
+      // async (err, doc) => {
+      //   console.log({ err });
+      //   console.log({ doc });
+      //   if (!doc) {
+      //     const createHistory = new History({ user: _id, history: history });
+      //     try {
+      //       const saveHistory = await createHistory.save();
+      //       res.status(200).json({ succes: true, saveHistory });
+      //     } catch (err) {
+      //       res
+      //         .status(400)
+      //         .json({ success: false, message: "Something Went Wrong" });
+      //     }
+      //   }
+      // };
+
       res.status(200).json({ savedHistory });
     }
   } catch (err) {
